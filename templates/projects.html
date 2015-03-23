@@ -1,0 +1,44 @@
+<div class="main">
+
+	<div class="row">
+		<div class="col-md-12">
+			<h2>Your projects</h2>
+		</div>
+	</div>
+
+
+	<div class="row">
+		<ul class="project-list col-md-12">
+			<li ng-repeat="project in projects | orderBy:'+id'">
+				
+				<div class="panel-sh" style="position:relative" ng-click="open(project.id)">
+					<div class="menu-overlay">
+						<span ng-click="remove(project.id);$event.stopPropagation();"><i class="fa fa-times fa-lg"/></span>
+						<span ng-click="showProjectDialog(project.id);$event.stopPropagation();"><i class="fa fa-wrench fa-lg"/></span>
+						<span ng-click="triggerStar(project);$event.stopPropagation();"><i class="fa fa-star fa-lg"/></span>
+					</div>
+					<div class="project-description">
+						<h4>{{project.name}}<span ng-show="project.starred"> <i class="fa fa-star" style="color: gold;"/></span></h4>
+						<h6>{{project.description}}</h6>
+					</div>
+					<div class="footer">
+						<h6>
+							Start: {{getFormattedDate(project.startDate)}} <span class="pull-right">End: {{getFormattedDate(project.endDate)}}</span>
+						</h6>
+						<h6></h6>
+					</div>
+					
+				</div>
+				
+			</li>
+			<li ng-show="loading">
+				<span style="margin-top:20px; margin-left:auto; margin-right:auto; width:100px;"><i class="fa fa-circle-o-notch fa-spin fa-3x text-primary"></i></span>
+			</li>
+			<li><a ng-click="showProjectDialog(false)"><h4>
+						<span><i class="fa fa-plus-circle fa-lg"></i></span> Create new project
+					</h4></a></li>
+		</ul>
+	</div>
+	<project-create-dialog></project-create-dialog>
+
+</div>

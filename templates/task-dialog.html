@@ -1,0 +1,93 @@
+
+<!-- Modal -->
+<div class="modal fade bs-modal-sm" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-md">
+		<div class="modal-content">
+			<div class="modal-body">
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<div style="margin-bottom: 20px;">
+					<div style="display: inline-block; width: 50px; vertical-align: top; color: #888;">
+						<h4>
+							<i class="fa fa-newspaper-o fa-lg"></i>
+						</h4>
+					</div>
+					<div ng-show="!isEditCaption" ng-click="editCaption();" style="cursor: pointer; display: inline-block; vertical-align: top;">
+						<h4>
+							<strong>{{dialogTask.content}}</strong>
+						</h4>
+					</div>
+					<div ng-show="isEditCaption" style="display: inline-block;">
+						<div style="margin-bottom: 10px;">
+							<input class="form-control" type="text" ng-model="dialogTask.content" />
+						</div>
+						<div style="margin: 5px 0;">
+							<button class="btn btn-success" ng-click="saveCaption(dialogTask)" style="width: 80px; margin-right: 20px;">Save</button>
+							<button class="btn btn-default" ng-click="closeEditCaption()" style="width: 80px;">Cancel</button>
+						</div>
+					</div>
+					<div style="margin-left: 50px;">
+						<h6 style="color: #888;">
+							Description <a ng-click="editDescription();">Edit...</a>
+						</h6>
+						<h5 ng-show="!isEditDescription">{{dialogTask.description}}</h5>
+						<div ng-show="isEditDescription">
+							<div style="margin-bottom: 10px;">
+								<textarea class="form-control" rows="3" ng-model="dialogTask.description"></textarea>
+							</div>
+							<div style="margin: 5px 0;">
+								<button class="btn btn-success" ng-click="saveDescription(dialogTask)" style="width: 80px; margin-right: 20px;">Save</button>
+								<button class="btn btn-default" ng-click="closeEditDescription()" style="width: 80px;">Cancel</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div>
+					<div style="display: inline-block; width: 50px; vertical-align: top; color: #888;">
+						<h4>
+							<i class="fa fa-check-square-o fa-lg"></i>
+						</h4>
+					</div>
+					<div style="display: inline-block; vertical-align: top;">
+						<h4>
+							<strong>Check list</strong>
+						</h4>
+					</div>
+				</div>
+
+				<div style="margin-left: 50px;">
+					<div class="progress" ng-show="dialogTask.subTasks.length">
+						<div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{dialogTask.progress}}%;">
+						</div>
+					</div>
+					<div ng-repeat="check in dialogTask.subTasks">
+						<div class="checkbox">
+							<input type="checkbox" id="checkbox{{$index}}" ng-model="check.state" ng-change="checkChanged(check)"> <label for="checkbox{{$index}}">{{check.content}}</label>
+							<span class="check-tool" ng-click="console.log('click');$event.stopPropagation();"> <i class="fa fa-wrench" /></span>
+						</div>
+					</div>
+					<div ng-show="!isAddSub" ng-click="openAddSub();" style="cursor: pointer;">
+						<h6>
+							<a>Add an item...</a>
+						</h6>
+					</div>
+					<div ng-show="isAddSub">
+						<div style="margin-bottom: 10px;">
+							<input class="form-control" type="text" ng-model="subCaption" />
+						</div>
+						<div style="margin: 5px 0;">
+							<button class="btn btn-success" ng-click="addSub(dialogTask)" style="width: 80px; margin-right: 20px;">
+								Save <span ng-show="addingSubTask"><i class="fa fa-circle-o-notch fa-spin fa-lg"></i></span>
+							</button>
+							<button class="btn btn-default" ng-click="closeAddSub()" style="width: 80px;">Cancel</button>
+						</div>
+					</div>
+
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+</div>
